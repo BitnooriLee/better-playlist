@@ -22,7 +22,7 @@ let fakeServerData = {
       },
       {
         name: 'Korean HipHop',
-        songs: ['SEARCH','Boys and Girls','She\'s baby'],
+        songs: ['SEARCH','Boys and Girls','She is baby'],
       },
       {},
       {},
