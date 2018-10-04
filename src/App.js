@@ -4,11 +4,37 @@ import './App.css';
 let defaultStyle = {
   color:'#fff'
 };
+let fakeServerData = {
+  user:{
+    name: 'David'
+    playlist:[
+      {
+        name: 'Nafla',
+        songs: ['apple box','Wu','angel'],
+      },
+      {
+        name: 'My favorite',
+        songs: ['Internet war','Stanky','beautiful'],
+      },
+      {
+        name: 'Another playlist - the best!',
+        songs: ['Oasis','Okey Dokey','Eureka'],
+      },
+      {
+        name: 'Korean HipHop',
+        songs: ['SEARCH','Boys and Girls','She\'s baby'],
+      },
+      {},
+      {},
+      {}
+    ]
+  }
+};
 class Aggregate extends Component{
   render (){
     return (
       <div style={{...defaultStyle,width:"40%", display: 'inline-block'}}>
-      <h2>Number Text</h2>
+      <h2>{this.props.playlists && this.props.playlists.length} Text</h2>
       </div>
     );
   }
@@ -36,11 +62,25 @@ class Playlist extends Component{
   }
 }
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {serverData: {}}
+  }
+  componentDidMount(){
+    setTimeout(()=>{
+      this.setState({serverData: fakeServerData});
+    }, 1000);
+    this.setState({serverData: fakeServerData});
+  }
   render() {
       return (
       <div className="App">
-      <h1 style={{...defaultStyle, 'font-size': '54px'}}>Title</h1>
-      <Aggregate/>
+      {this.state.serverData.user &&
+      {<h1 style={{...defaultStyle, 'font-size': '54px'}}>
+      {this.state.serverData.user.name}s Playlists
+        </h1>}
+      <Aggregate playlists={{this.state.serverData.user &&
+                             this.state.serverData.user.playlists}}/>
       <Aggregate/>
       <Filter/>
       <Playlist/>
