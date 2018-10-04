@@ -6,7 +6,7 @@ let defaultStyle = {
 };
 let fakeServerData = {
   user:{
-    name: 'David'
+    name: 'David',
     playlist:[
       {
         name: 'Nafla',
@@ -24,9 +24,6 @@ let fakeServerData = {
         name: 'Korean HipHop',
         songs: ['SEARCH','Boys and Girls','She is baby'],
       },
-      {},
-      {},
-      {}
     ]
   }
 };
@@ -76,11 +73,11 @@ class App extends Component {
       return (
       <div className="App">
       {this.state.serverData.user &&
-      {<h1 style={{...defaultStyle, 'font-size': '54px'}}>
+      <h1 style={{...defaultStyle, 'font-size': '54px'}}>
       {this.state.serverData.user.name}s Playlists
         </h1>}
-      <Aggregate playlists={{this.state.serverData.user &&
-                             this.state.serverData.user.playlists}}/>
+      <Aggregate playlists={this.state.serverData.user &&
+                             this.state.serverData.user.playlists}/>
       <Aggregate/>
       <Filter/>
       <Playlist/>
