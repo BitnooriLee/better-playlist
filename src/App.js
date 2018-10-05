@@ -6,32 +6,47 @@ let defaultStyle = {
 };
 let fakeServerData = {
   user:{
-    name: 'David',
+    name: 'Bitnoori',
     playlists:[
       {
         name: 'Nafla',
-        songs: ['apple box','Wu','angel']
+        songs: [{name:'apple box', duration:1345},{name:'Wu', duration:1234},{name:'angel',duration:1122}]
       },
       {
         name: 'My favorite',
-        songs: ['Internet war','Stanky','beautiful']
+        songs: [{name:'Internet war', duration:1344},{name:'Stanky', duration:1341},{name:'beautiful', duration:1342}]
       },
       {
         name: 'Another playlist - the best!',
-        songs: ['Oasis','Okey Dokey','Eureka']
+        songs: [{name:'Oasis', duration:1346},{name:'Okey Dokey', duration:1341},{name:'Eureka', duration:1342}]
       },
       {
         name: 'Korean HipHop',
-        songs: ['SEARCH','Boys and Girls','She is baby']
+        songs: [{name:'SEARCH', duration:1347},{name:'Boys and Girls', duration:1343},{name:'She is baby', duration:1346}]
       }
     ]
   }
 };
-class Aggregate extends Component{
+class PlaylistCounter extends Component{
   render (){
     return (
       <div style={{...defaultStyle,width:"40%", display: 'inline-block'}}>
-      <h2>{this.props.playlists && this.props.playlists.length} Text</h2>
+      <h2>{this.props.playlists.length} playlists</h2>
+      </div>
+    );
+  }
+}
+class HoursCounter extends Component{
+  render (){
+    let allSongs = this.props.playlists.reduce((songs, eachPlaylist) =>{
+      return songs.concat(eachPlaylist.songs)
+    },[])
+    let totalDuration = allSongs.reduce((sum, eachSong) => {
+      return sum + eachSong.duration
+    },0)
+    return (
+      <div style={{...defaultStyle,width:"40%", display: 'inline-block'}}>
+      <h2>{Math.round(totalDuration/60)} hours</h2>
       </div>
     );
   }
@@ -71,18 +86,21 @@ class App extends Component {
   render() {
       return (
       <div className="App">
-      {this.state.serverData.user &&
-      <h1 style={{...defaultStyle, 'font-size': '54px'}}>
-        {this.state.serverData.user.name}s Playlists
-        </h1>}
-      <Aggregate playlists={this.state.serverData.user &&
-                            this.state.serverData.user.playlists}/>
-      <Aggregate/>
-      <Filter/>
-      <Playlist/>
-      <Playlist/>
-      <Playlist/>
-      </div>
+
+      {this.state.serverData.user ?
+      <div>
+        <h1 style={{...defaultStyle, 'font-size': '54px'}}>
+          {this.state.serverData.user.name}'s Playlists
+          </h1>
+              <PlaylistCounter playlists= {this.state.serverData.user.playlists}/>
+              <HoursCounter playlists= {this.state.serverData.user.playlists}/>
+        <Filter/>
+        <Playlist/>
+        <Playlist/>
+        <Playlist/>
+      </div> : <h1 style = {{...defaultStyle}}>'Loading...'</h1>
+      }
+    </div>
     );
   }
 }
