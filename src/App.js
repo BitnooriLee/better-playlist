@@ -67,14 +67,13 @@ class App extends Component {
     setTimeout(()=>{
       this.setState({serverData: fakeServerData});
     }, 1000);
-    this.setState({serverData: fakeServerData});
   }
   render() {
       return (
       <div className="App">
       {this.state.serverData.user &&
       <h1 style={{...defaultStyle, 'font-size': '54px'}}>
-      {this.state.serverData.user.name}s Playlists
+        {this.state.serverData.user.name}s Playlists
         </h1>}
       <Aggregate playlists={this.state.serverData.user &&
                              this.state.serverData.user.playlists}/>
