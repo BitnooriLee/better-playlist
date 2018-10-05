@@ -7,23 +7,23 @@ let defaultStyle = {
 let fakeServerData = {
   user:{
     name: 'David',
-    playlist:[
+    playlists:[
       {
         name: 'Nafla',
-        songs: ['apple box','Wu','angel'],
+        songs: ['apple box','Wu','angel']
       },
       {
         name: 'My favorite',
-        songs: ['Internet war','Stanky','beautiful'],
+        songs: ['Internet war','Stanky','beautiful']
       },
       {
         name: 'Another playlist - the best!',
-        songs: ['Oasis','Okey Dokey','Eureka'],
+        songs: ['Oasis','Okey Dokey','Eureka']
       },
       {
         name: 'Korean HipHop',
-        songs: ['SEARCH','Boys and Girls','She is baby'],
-      },
+        songs: ['SEARCH','Boys and Girls','She is baby']
+      }
     ]
   }
 };
@@ -64,7 +64,7 @@ class App extends Component {
     this.state = {serverData: {}}
   }
   componentDidMount(){
-    setTimeout(()=>{
+    setTimeout(() => {
       this.setState({serverData: fakeServerData});
     }, 1000);
   }
@@ -76,7 +76,7 @@ class App extends Component {
         {this.state.serverData.user.name}s Playlists
         </h1>}
       <Aggregate playlists={this.state.serverData.user &&
-                             this.state.serverData.user.playlists}/>
+                            this.state.serverData.user.playlists}/>
       <Aggregate/>
       <Filter/>
       <Playlist/>
