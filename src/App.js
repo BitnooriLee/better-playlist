@@ -10,19 +10,19 @@ let fakeServerData = {
     playlists:[
       {
         name: 'Nafla',
-        songs: [{name:'apple box', duration:1345},{name:'Wu', duration:1234},{name:'angel',duration:1122}]
+        songs: [{name:'apple box', duration:1340},{name:'Wu', duration:1034},{name:'angel',duration:1122}]
       },
       {
         name: 'My favorite',
-        songs: [{name:'Internet war', duration:1344},{name:'Stanky', duration:1341},{name:'beautiful', duration:1342}]
+        songs: [{name:'Internet war', duration:134},{name:'Stanky', duration:1341},{name:'beautiful', duration:1342}]
       },
       {
         name: 'Another playlist - the best!',
-        songs: [{name:'Oasis', duration:1346},{name:'Okey Dokey', duration:1341},{name:'Eureka', duration:1342}]
+        songs: [{name:'Oasis', duration:1346},{name:'Okey Dokey', duration:1941},{name:'Eureka', duration:1342}]
       },
       {
         name: 'Korean HipHop',
-        songs: [{name:'SEARCH', duration:1347},{name:'Boys and Girls', duration:1343},{name:'She is baby', duration:1346}]
+        songs: [{name:'SEARCH', duration:1117},{name:'Boys and Girls', duration:1343},{name:'She is baby', duration:1346}]
       }
     ]
   }
@@ -93,22 +93,24 @@ class App extends Component {
     }, 1000);
   }
   render() {
-
-      return (
+    let playlistsToRender = this.state.serverData.user ? this.state.serverData.user.playlists
+    .filter(playlist =>
+      playlist.name.toLowerCase().includes(
+        this.state.filterString.toLowerCase())
+    ) : []
+    return (
       <div className="App">
       {this.state.serverData.user ?
       <div>
         <h1 style={{...defaultStyle, 'font-size': '54px'}}>
           {this.state.serverData.user.name}s Playlists
           </h1>
-              <PlaylistCounter playlists= {this.state.serverData.user.playlists}/>
-              <HoursCounter playlists= {this.state.serverData.user.playlists}/>
+        <PlaylistCounter playlists= {playlistsToRender}/>
+        <HoursCounter playlists= {playlistsToRender}/>
         <Filter onTextChange={text => {
-          this.setState({filterString: text})}
-        }/>
-        {this.state.serverData.user.playlists.filter(playlist =>
-          playlist.name.toLowerCase().includes(this.state.filterString.toLowerCase())
-        ).map(playlist =>
+          this.setState({filterString: text})
+        }}/>
+        {playlistsToRender.map(playlist =>
           <Playlist playlist={playlist}/>
         )}
       </div> : <h1 style = {{...defaultStyle}}>'Loading...'</h1>
